@@ -152,8 +152,10 @@ export default class CameraScreen extends React.Component {
 	  // console.log("Saving:\n" + JSON.stringify(photo));
   	  if(photo.exif){
 		console.log("Exif Data:\n" + JSON.stringify(photo.exif));
-		// console.log("Orientation: " + JSON.stringify(photo.exif.Orientation));
-		Alert.alert('Orientation: ' + photo.exif.Orientation);
+		let orientationInfo = await ScreenOrientation.getOrientationAsync();
+		let msg = 'Orientation: ' + photo.exif.Orientation + '\n' + JSON.stringify(orientationInfo);
+		console.log(msg);
+		Alert.alert(msg);
 	  }else{
 		let msg = 'WARNING: no exif data';
 		console.log(msg);
