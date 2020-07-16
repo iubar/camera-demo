@@ -2,6 +2,7 @@ import * as FileSystem from 'expo-file-system';
 import { Camera } from 'expo-camera';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import Constants from 'expo-constants';
+import { ScreenOrientation } from 'expo';
 import * as Permissions from 'expo-permissions';
 
 import React from 'react';
