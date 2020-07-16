@@ -44,7 +44,7 @@ export default class GalleryScreen extends React.Component {
       if (status !== 'granted') {
         throw new Error('Denied CAMERA_ROLL permissions!');
       }
-
+ 
       const promises = photos.map(photoUri => {
         return MediaLibrary.createAssetAsync(photoUri);
       });
