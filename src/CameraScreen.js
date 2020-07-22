@@ -1,11 +1,11 @@
-import * as FileSystem from 'expo-file-system';
-import { Camera } from 'expo-camera';
-import { BarCodeScanner } from 'expo-barcode-scanner';
-import Constants from 'expo-constants';
-import { ScreenOrientation } from 'expo';
-import * as Permissions from 'expo-permissions';
-
 import React from 'react';
+import * as FileSystem from 'expo-file-system'; // https://docs.expo.io/versions/v38.0.0/sdk/filesystem/
+import { Camera } from 'expo-camera'; // https://docs.expo.io/versions/v38.0.0/sdk/camera/
+import { BarCodeScanner } from 'expo-barcode-scanner'; // https://docs.expo.io/versions/v38.0.0/sdk/bar-code-scanner/
+import Constants from 'expo-constants'; // https://docs.expo.io/versions/v38.0.0/sdk/constants/
+import * as ScreenOrientation from 'expo-screen-orientation'; // https://docs.expo.io/versions/v38.0.0/sdk/screen-orientation/
+import * as Permissions from 'expo-permissions'; // https://docs.expo.io/versions/v38.0.0/sdk/permissions/
+
 import {
   Alert,
   StyleSheet,
@@ -80,16 +80,17 @@ export default class CameraScreen extends React.Component {
     showGallery: false,
     showMoreOptions: false,
   };
-
-  async componentWillMount() {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    this.setState({ permissionsGranted: status === 'granted' });
-  }
-
-  componentDidMount() {
+ 
+ 
+  async componentDidMount() {
+	  
     FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + 'photos').catch(e => {
       console.log(e, 'Directory exists');
     });
+	
+	const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    this.setState({ permissionsGranted: status === 'granted' });
+
   }
 
   getRatios = async () => {
@@ -394,6 +395,7 @@ export default class CameraScreen extends React.Component {
     const content = this.state.showGallery ? this.renderGallery() : cameraScreenContent;
     return <View style={styles.container}>{content}</View>;
   }
+  
 }
 
 const styles = StyleSheet.create({

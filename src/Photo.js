@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, StyleSheet, View, TouchableOpacity, Text } from 'react-native';
-import { FaceDetector } from 'expo';
-import { Ionicons } from '@expo/vector-icons';
+import * as FaceDetector from 'expo-face-detector'; // https://docs.expo.io/versions/latest/sdk/facedetector/
+import { Ionicons } from '@expo/vector-icons'; // https://docs.expo.io/guides/icons/#expovector-icons
 
 const pictureSize = 150;
 
@@ -28,6 +28,7 @@ export default class Photo extends React.Component {
     );
   }
 
+
   detectFace = () =>
     FaceDetector.detectFacesAsync(this.props.uri, {
       detectLandmarks: FaceDetector.Constants.Landmarks.none,
@@ -35,6 +36,12 @@ export default class Photo extends React.Component {
     })
       .then(this.facesDetected)
       .catch(this.handleFaceDetectionError);
+	  
+	detectFaces2 = async imageUri => {
+	  const options = { mode: FaceDetector.Constants.Mode.fast };
+	  return await FaceDetector.detectFacesAsync(imageUri, options);
+	};
+	  
 
   facesDetected = ({ image, faces }) => {
     this.setState({
