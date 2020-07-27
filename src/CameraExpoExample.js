@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
 
+/**
+* forked from https://docs.expo.io/versions/latest/sdk/camera/
+*/
 export default function CameraExpoExample() {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
