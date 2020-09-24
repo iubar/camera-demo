@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Camera Test",
-    "slug": "camera-test",
+    "name": "Camera Demo",
+    "slug": "camera-demo",
     "privacy": "public",
     "platforms": [
       "ios",
