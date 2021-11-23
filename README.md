@@ -1,6 +1,6 @@
 # camera-demo
 
-[![Build Status](https://app.travis-ci.com/iubar/camera-demo?branch=master)](https://app.travis-ci.com/github/iubar/camera-demo)
+[![Build Status](https://app.travis-ci.com/iubar/camera-demo.svg?branch=master)](https://app.travis-ci.com/github/iubar/camera-demo)
 
 A simple app to test the Expo's Camera component, forked from https://github.com/expo/camerja/blob/master/App.js
 
