@@ -4,7 +4,6 @@ import { Camera } from 'expo-camera'; // https://docs.expo.io/versions/v38.0.0/s
 import { BarCodeScanner } from 'expo-barcode-scanner'; // https://docs.expo.io/versions/v38.0.0/sdk/bar-code-scanner/
 import Constants from 'expo-constants'; // https://docs.expo.io/versions/v38.0.0/sdk/constants/
 import * as ScreenOrientation from 'expo-screen-orientation'; // https://docs.expo.io/versions/v38.0.0/sdk/screen-orientation/
-import * as Permissions from 'expo-permissions'; // https://docs.expo.io/versions/v38.0.0/sdk/permissions/
 
 import {
   Alert,
@@ -85,10 +84,11 @@ export default class CameraScreen extends React.Component {
   async componentDidMount() {
 	  
     FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + 'photos').catch(e => {
-      console.log(e, 'Directory exists');
+      console.log(e);
     });
 	
-	const { status } = await Permissions.askAsync(Permissions.CAMERA);
+  const { status } = await Camera.requestCameraPermissionsAsync();
+ 
     this.setState({ permissionsGranted: status === 'granted' });
 
   }
@@ -195,8 +195,8 @@ export default class CameraScreen extends React.Component {
     }
   };
 
-  previousPictureSize = () => this.changePictureSize(1);
-  nextPictureSize = () => this.changePictureSize(-1);
+  previousPictureSize = () => this.changePictureSize(-1);
+  nextPictureSize = () => this.changePictureSize(1);
 
   changePictureSize = direction => {
     let newId = this.state.pictureSizeId + direction;
@@ -238,6 +238,7 @@ export default class CameraScreen extends React.Component {
   }
 
   renderLandmarksOfFace(face) {
+
     const renderLandmark = position =>
       position && (
         <View
@@ -250,6 +251,7 @@ export default class CameraScreen extends React.Component {
           ]}
         />
       );
+      
     return (
       <View key={`landmarks-${face.faceID}`}>
         {renderLandmark(face.leftEyePosition)}
@@ -281,6 +283,7 @@ export default class CameraScreen extends React.Component {
     <View style={styles.noPermissions}>
       <Text style={{ color: 'white' }}>
         Camera permissions not granted - cannot open camera preview.
+        dd
       </Text>
     </View>
 
@@ -288,7 +291,7 @@ export default class CameraScreen extends React.Component {
     <View
       style={styles.topBar}>
       <TouchableOpacity style={styles.toggleButton} onPress={this.toggleFacing}>
-        <Ionicons name="ios-reverse-camera" size={32} color="white" />
+        <Ionicons name="ios-camera-reverse" size={32} color="white" />
       </TouchableOpacity>
       <TouchableOpacity style={styles.toggleButton} onPress={this.toggleFlash}>
         <MaterialIcons name={flashIcons[this.state.flash]} size={32} color="white" />
@@ -339,13 +342,13 @@ export default class CameraScreen extends React.Component {
           <Text style={styles.pictureQualityLabel}>Picture quality</Text>
           <View style={styles.pictureSizeChooser}>
             <TouchableOpacity onPress={this.previousPictureSize} style={{ padding: 6 }}>
-              <Ionicons name="md-arrow-dropleft" size={14} color="white" />
+              <Ionicons name="ios-arrow-back-outline" size={14} color="white" />
             </TouchableOpacity>
             <View style={styles.pictureSizeLabel}>
               <Text style={{color: 'white'}}>{this.state.pictureSize}</Text>
             </View>
             <TouchableOpacity onPress={this.nextPictureSize} style={{ padding: 6 }}>
-              <Ionicons name="md-arrow-dropright" size={14} color="white" />
+              <Ionicons name="ios-arrow-forward-outline" size={14} color="white" />
             </TouchableOpacity>
           </View>
         </View>

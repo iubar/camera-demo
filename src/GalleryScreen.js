@@ -1,11 +1,6 @@
 import React from 'react';
-
 import * as FileSystem from 'expo-file-system';
-import * as Permissions from 'expo-permissions';
 import * as MediaLibrary from 'expo-media-library';
-import * as FaceDetector from 'expo-face-detector';
-
-
 import { Image, StyleSheet, View, TouchableOpacity, Text, ScrollView } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import Photo from './Photo';
@@ -39,7 +34,7 @@ export default class GalleryScreen extends React.Component {
     const photos = this.state.selected;
 
     if (photos.length > 0) {
-      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      const { status } = await MediaLibrary.requestPermissionsAsync();
 
       if (status !== 'granted') {
         throw new Error('Denied CAMERA_ROLL permissions!');
